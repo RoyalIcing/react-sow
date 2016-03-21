@@ -1,11 +1,13 @@
 function createStyler(renderStyle, children) {
 	return Object.assign(
-		(props) => ({
-			style: Object.assign({}, 
-                renderStyle(props || {}),
-                props.style
-            })
-		}),
+		function(props) {
+            return {
+                style: Object.assign({},
+                    renderStyle(props || {}),
+                    !!props ? props.style : undefined
+                )
+            };
+        },
 		children
 	);
 }
