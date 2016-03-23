@@ -1,4 +1,14 @@
+var isFunction = require('lodash.isfunction');
+
+
 function createStyler(renderStyle, children) {
+	if (!isFunction(renderStyle)) {
+		var style = renderStyle;
+		renderStyle = function() {
+			return style;
+		};
+	}
+	
 	return Object.assign(
 		function(props) {
 			// Render

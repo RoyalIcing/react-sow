@@ -1,6 +1,6 @@
 {
   "name": "react-sow",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Customizable styling for React components",
   "main": "index.js",
   "scripts": {
@@ -24,5 +24,8 @@
   "bugs": {
     "url": "https://github.com/BurntCaramel/react-sow/issues"
   },
-  "homepage": "https://github.com/BurntCaramel/react-sow#readme"
+  "homepage": "https://github.com/BurntCaramel/react-sow#readme",
+  "dependencies": {
+    "lodash.isfunction": "^3.0.8"
+  }
 }
