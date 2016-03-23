@@ -40,13 +40,19 @@ function createStyler(renderStyle, children) {
 }
 
 function combine(stylers) {
-	return function(props) {
+	var newStyler = function(props) {
+		// Flatten 'style' prop
 		return stylers.reduce(function(combined, styler) {
 			var output = styler(props);
 			Object.assign(combined.style, output.style);
 			return combined;
 		}, { style: {} });
 	}
+	
+	// Copy child stylers.
+	Object.assign.apply(Object, [newStyler].concat(stylers));
+	
+	return newStyler;
 }
 
 createStyler.combine = combine;
