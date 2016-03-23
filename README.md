@@ -9,7 +9,11 @@ npm install react-sow --save
 
 ## Example
 
-Create the styles you wish to use using *sow()*:
+Create the styles you wish to use using `sow()`.
+To render based on props, pass a function returning the style rules.
+Otherwise, just pass the style rules.
+
+You can attach child stylers by using the second parameter.
 
 ```javascript
 // styles.js
@@ -33,8 +37,8 @@ function itemStyler = sow(({ darkMode }) => ({
 In your pure components, accept the prop `styler`,
 defaulting it to `defaultStyler` (imported from 'react-sow/default').
 
-Then on your main component, spread `styler`, calling it with the
-props you wish to pass.
+Then on your main component, call and spread `styler()`,
+optionally passing props.
 
 ```javascript
 // List.js
@@ -49,7 +53,7 @@ function Item({ title, darkMode, styler = defaultStyler }) {
     );
 }
 
-export default function List({ items, darkMode, styler = defaultStyler }) {
+export default function List({ items, darkMode, styler = defaultStyler }) { 
     return (
       <ul { ...styler({ darkMode }) }>
         { items.map(item => (
@@ -85,4 +89,54 @@ export default React.createClass({
         );
     }
 });
+```
+
+## Combining stylers
+
+```javascript
+import sow from 'react-sow';
+
+const orangeTextStyler = sow({
+    color: 'orange'
+});
+
+const largeTextStyler = sow({
+    fontSize: '2em'
+});
+
+const headingStyler = sow.combine([
+    orangeTextStyler,
+    largeTextStyler
+]);
+```
+
+## :before and :after support
+
+You can even use `:before` and `:after` in stylers, using `fallow()`
+This works by creating `<style>` elements and inserting
+them lazily into the `<head>` for you.
+
+```javascript
+import sow from 'react-sow';
+import { fallow } from 'react-sow/dom';
+
+const makeGreatAgain = fallow({
+	before: {
+		content: 'Make '
+	},
+    after: {
+        content: ' great again'
+    }
+});
+
+const sloganStyler = sow({
+   classes: [makeGreatAgain]
+});
+
+function Slogan({ subject }) {
+    return (
+        <h2 { ...sloganStyler() }>
+        </h2>
+    );
+}
 ```
