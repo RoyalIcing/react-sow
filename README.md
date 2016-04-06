@@ -20,7 +20,7 @@ You can attach child stylers by using the second parameter.
 
 import sow from 'react-sow';
 
-export function listStyler = sow(({ darkMode }) => ({
+export const listStyler = sow(({ darkMode }) => ({
 	// Styles
 	listStyle: 'none',
 	backgroundColor: ? darkMode : 'black' : 'white',
@@ -28,7 +28,7 @@ export function listStyler = sow(({ darkMode }) => ({
 	item: itemStyler,
 });
 
-function itemStyler = sow(({ darkMode }) => ({
+const itemStyler = sow(({ darkMode }) => ({
 	display: 'block',
 	color: ? darkMode : 'white' : 'black',
 }));
