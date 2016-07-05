@@ -1,10 +1,14 @@
+var camelCaseToKebabCase = require('./camelCaseToKebabCase');
+
 var state = {
 	classCounter: 0,
 	outputter: outputAsDocumentStylesheet
 };
 
-function camelCaseToKebabCase(key) {
-	return key.replace(/([A-Z])/, function(match) { return '-' + match.toLowerCase() });
+function useClassCounter() {
+	const current = state.classCounter;
+	state.classCounter++;
+	return current;
 }
 
 function convertValueToCSS(key, value) {
@@ -67,9 +71,8 @@ function useStyle(styleDeclaration) {
 function fallow(styleDeclaration) {
 	var className = styleDeclaration.className;
 	if (typeof className === 'undefined') {
-		className = 'sow-fallow-' + state.classCounter;
+		className = 'sow-fallow-' + useClassCounter();
 		styleDeclaration.className = className;
-		state.classCounter++;
 	}
 	
 	return function() {
