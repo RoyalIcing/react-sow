@@ -5,6 +5,10 @@ function RGBA(r, g, b, a) {
 	this.a = (typeof a === 'undefined' ? 1 : a);
 }
 
+RGBA.prototype.get = function(key) {
+	return this[key]
+}
+
 RGBA.prototype.mapRGB = function(mapper) {
 	return new RGBA(
 		mapper(this.r, 'r'),
@@ -33,4 +37,9 @@ function rgba(r, g, b, a) {
 	return new RGBA(r, g, b, a);
 }
 
+function whiteValue(whiteAmount, a) {
+	return new RGBA(whiteAmount, whiteAmount, whiteAmount, a);
+}
+
+rgba.whiteValue = whiteValue;
 module.exports = rgba; 
