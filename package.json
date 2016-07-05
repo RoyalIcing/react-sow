@@ -1,6 +1,6 @@
 {
   "name": "react-sow",
-  "version": "0.2.2",
+  "version": "0.3.0b1",
   "description": "Customizable styling for React components",
   "main": "index.js",
   "scripts": {
