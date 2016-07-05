@@ -24,17 +24,25 @@ function convertRulesToCSS(rules) {
 	}).join('\n');
 }
 
+const ruleSpecs = [
+	{ id: 'before', suffix: ':before' },
+	{ id: 'after', suffix: ':after' },
+	{ id: 'hover', suffix: ':hover' },
+	{ id: 'focus', suffix: ':focus' },
+	{ id: 'active', suffix: ':active' },
+	{ id: 'visited', suffix: ':visited' }
+]
+
 function renderStyle(styleDeclaration) {
 	var rules = [];
 	
 	var className = styleDeclaration.className;
-	
-	if (styleDeclaration.before) {
-		rules.push('.' + className + ':before {\n' + convertRulesToCSS(styleDeclaration.before) + '\n}');
-	}
-	if (styleDeclaration.after) {
-		rules.push('.' + className + ':after {\n' + convertRulesToCSS(styleDeclaration.after) + '\n}');
-	}
+
+	ruleSpecs.forEach(function(ruleSpec) {
+		if (styleDeclaration[ruleSpec.id]) {
+			rules.push('.' + className + ruleSpec.suffix + ' {\n' + convertRulesToCSS(styleDeclaration[ruleSpec.id]) + '\n}');
+		}
+	});
 	
 	return rules.join('\n');
 }
