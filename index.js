@@ -47,7 +47,7 @@ function createStyler(renderStyle) {
 		}
 		
 		// Return output props
-		let output = {
+		var output = {
 			style: outputStyle,
 			className: outputClassName.trim()
 		};

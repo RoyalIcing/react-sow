@@ -6,7 +6,7 @@ var state = {
 };
 
 function useClassCounter() {
-	const current = state.classCounter;
+	var current = state.classCounter;
 	state.classCounter++;
 	return current;
 }
@@ -28,7 +28,7 @@ function convertRulesToCSS(rules) {
 	}).join('\n');
 }
 
-const ruleSpecs = [
+var ruleSpecs = [
 	{ id: 'before', suffix: ':before' },
 	{ id: 'after', suffix: ':after' },
 	{ id: 'hover', suffix: ':hover' },

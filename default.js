@@ -1,5 +1,5 @@
 module.exports = function defaultStyler(props) {
-	let output = {};
+	var output = {};
 
 	if (props.children) {
 		output.children = props.children;
