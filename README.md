@@ -24,11 +24,9 @@ export const listStyler = sow(({ darkMode }) => ({
 	// Styles
 	listStyle: 'none',
 	backgroundColor: ? darkMode : 'black' : 'white',
-}), { // Children
-	item: itemStyler,
-});
+}));
 
-const itemStyler = sow(({ darkMode }) => ({
+export const itemStyler = sow(({ darkMode }) => ({
 	display: 'block',
 	color: ? darkMode : 'white' : 'black',
 }));
@@ -53,11 +51,11 @@ function Item({ title, darkMode, styler = defaultStyler }) {
 	);
 }
 
-export default function List({ items, darkMode, styler = defaultStyler }) { 
+export default function List({ items, darkMode, styler = defaultStyler, itemStyler = defaultStyler }) { 
 	return (
 	  <ul { ...styler({ darkMode }) }>
 		{ items.map(item => (
-			<Item { ...item } darkMode={ darkMode } styler={ styler.item } />
+			<Item { ...item } darkMode={ darkMode } styler={ itemStyler } />
 		)) }
 	  </ul>  
 	);
@@ -71,7 +69,7 @@ render your pure components with them.
 // ListController.js
 import React from 'react';
 import List from './List';
-import { listStyler } from './styles';
+import { listStyler, itemStyler } from './styles';
 
 export default React.createClass({
 	constructor(props) {
@@ -85,7 +83,7 @@ export default React.createClass({
 	render() {
 		const { items, darkMode } = this.state;
 		return (
-			<List items={ items } darkMode={ darkMode } styler={ listStyler } />
+			<List items={ items } darkMode={ darkMode } styler={ listStyler } itemStyler={ itemStyler } />
 		);
 	}
 });

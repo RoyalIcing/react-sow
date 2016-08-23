@@ -64,7 +64,7 @@ function outputAsDocumentStylesheet(className, styleDeclaration, renderStyle) {
 	document.head.appendChild(styleElement);
 }
 
-function useStyle(styleDeclaration) {
+function addStyleSheet(styleDeclaration) {
 	state.outputter(styleDeclaration.className, styleDeclaration, renderStyle);
 }
 
@@ -76,7 +76,7 @@ function fallow(styleDeclaration) {
 	}
 	
 	return function() {
-		useStyle(styleDeclaration);
+		addStyleSheet(styleDeclaration);
 		return className;
 	};
 }

@@ -9,7 +9,7 @@ function createStyler(renderStyle) {
 		};
 	}
 
-	return function renderProps(props) {
+	function renderProps(props) {
 		props = props || {};
 		// Render
 		var outputStyle = renderStyle(props);
@@ -58,6 +58,10 @@ function createStyler(renderStyle) {
 
 		return output;
 	}
+
+	renderProps.concat = concat;
+
+	return renderProps;
 }
 
 function sow(renderStyle, children) {
@@ -67,13 +71,12 @@ function sow(renderStyle, children) {
 		) : (
 			createStyler(renderStyle)
 		),
-		{ isSow: true },
-		children
+		{ isSow: true }
 	);
 }
 
 function combine(stylers) {
-	var newStyler = function(props) {
+	return sow(function renderStyle(props) {
 		// Combine `style` and `classes` props
 		return stylers.reduce(function(combined, styler) {
 			var output = sow(styler)(props);
@@ -94,12 +97,11 @@ function combine(stylers) {
 
 			return combined;
 		}, { style: {}, className: '' });
-	}
-	
-	// Copy child stylers.
-	Object.assign.apply(Object, [newStyler].concat(stylers));
-	
-	return newStyler;
+	});
+}
+
+function concat(other) {
+	return combine(this, [ other ]);
 }
 
 sow.combine = combine;
